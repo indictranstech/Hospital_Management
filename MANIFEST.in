@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include hospital_bed_management *.css
+recursive-include hospital_bed_management *.csv
+recursive-include hospital_bed_management *.html
+recursive-include hospital_bed_management *.ico
+recursive-include hospital_bed_management *.js
+recursive-include hospital_bed_management *.json
+recursive-include hospital_bed_management *.md
+recursive-include hospital_bed_management *.png
+recursive-include hospital_bed_management *.py
+recursive-include hospital_bed_management *.svg
+recursive-include hospital_bed_management *.txt
+recursive-exclude hospital_bed_management *.pyc

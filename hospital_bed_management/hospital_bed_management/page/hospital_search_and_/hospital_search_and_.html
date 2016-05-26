@@ -1,0 +1,22 @@
+<div>
+	<table class="table table-bordered">
+		<tr>
+			<th>Select</th>
+			<th>Hospital Name</th>
+			<th>Total Beds</th>
+			<th>I-Available</th>
+			<th>W-Available</th>
+		</tr>
+		{% for(var i=0, l=data.length; i < l; i++) { %}
+		<tr hosp-name="{{data[i].name}}">
+			<td><label for="select"> <input type="radio" name="select" id="select" style="height: 1.2em; width: 1.2em;" /></label></td>
+			<td>{{ data[i].name }}</td>
+			<td>{{ data[i].total_operational_beds }}</td>
+			<td>{{ data[i].i_available }}</td>
+			<td>{{ data[i].w_available }}</td>
+			<!-- <td>{{ data[i].reserved_for_indigent_patients - data[i].i_patient_alloted }}</td>
+			<td>{{ data[i].reserved_for_weaker_patients - data[i].w_patient_alloted }}</td> -->
+		</tr>
+		{% } %}
+	</table>
+</div>

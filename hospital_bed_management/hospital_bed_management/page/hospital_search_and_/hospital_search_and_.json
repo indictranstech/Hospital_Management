@@ -1,0 +1,25 @@
+{
+ "content": null, 
+ "creation": "2016-05-18 14:48:38.736130", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2016-05-18 14:48:38.736130", 
+ "modified_by": "Administrator", 
+ "module": "Hospital Bed Management", 
+ "name": "hospital-search-and-", 
+ "owner": "Administrator", 
+ "page_name": "Hospital Search and Allocation", 
+ "roles": [
+  {
+   "role": "Municipal Officers"
+  }, 
+  {
+   "role": "Social Workers"
+  }
+ ], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "title": "Hospital Search and Allocation"
+}

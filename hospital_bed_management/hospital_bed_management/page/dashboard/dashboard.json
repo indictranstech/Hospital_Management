@@ -1,0 +1,25 @@
+{
+ "content": null, 
+ "creation": "2016-05-25 18:55:53.498821", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2016-05-25 18:55:53.498821", 
+ "modified_by": "Administrator", 
+ "module": "Hospital Bed Management", 
+ "name": "dashboard", 
+ "owner": "Administrator", 
+ "page_name": "Dashboard", 
+ "roles": [
+  {
+   "role": "Municipal Officers"
+  }, 
+  {
+   "role": "Social Workers"
+  }
+ ], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "title": "Dashboard"
+}
