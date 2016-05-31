@@ -7,7 +7,7 @@ def get_data():
 			"module_name": "Hospital Bed Management",
 			"label": _("Hospital Bed Management"),
 			"color": "#FA5858",
-			"icon": "icon-suitcase",
+			"icon": "octicon octicon-plus",
 			"type": "module"
 		}
 	]

@@ -1,0 +1,20 @@
+<div>
+	<table class="table table-bordered table-hover">
+		<tr>
+			<th class="heading">Select</th>
+			<th class="heading">Hospital Name</th>
+			<th class="heading">Total Beds</th>
+			<th class="heading">I-Available</th>
+			<th class="heading">W-Available</th>
+		</tr>
+		{% for(var i=0, l=data.length; i < l; i++) { %}
+		<tr hosp-name="{{data[i].name}}">
+			<td class="hosplital" style="text-align: center;"><label for="select"> <input type="radio" name="select" id="select" style="height: 1em; width: 1em;" /></label></td>
+			<td class="hosplital" style="text-align: left;">{{ data[i].name }}</td>
+			<td class="hosplital">{{ data[i].total_operational_beds }}</td>
+			<td class="hosplital">{{ data[i].i_available }}</td>
+			<td class="hosplital">{{ data[i].w_available }}</td>
+		</tr>
+		{% } %}
+	</table>
+</div>

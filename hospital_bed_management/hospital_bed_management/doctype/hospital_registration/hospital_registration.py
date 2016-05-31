@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2015, Bed Management Syastem and contributors
+# Copyright (c) 2015, Bed Management System and contributors
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
@@ -9,10 +9,10 @@ from frappe.model.document import Document
 class HospitalRegistration(Document):
 	pass
 
-
+# get reserved bed percents from System Settings
 @frappe.whitelist()
 def get_reserved_percents():
-	i_reserved = frappe.db.get_value("System Settings", None, "reserved_percent_beds_for_indigent_and_weaker")
-	w_reserved = frappe.db.get_value("System Settings", None, "reserved_bed_percent_for_weaker_patient")
+	i_reserved = frappe.db.get_value("System Settings", None, "i_reserved_bed_percents")
+	w_reserved = frappe.db.get_value("System Settings", None, "w_reserved_bed_percents")
 	return i_reserved, w_reserved
 	

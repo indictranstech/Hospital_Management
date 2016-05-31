@@ -1,4 +1,4 @@
-frappe.pages['patient-allotment-an'].on_page_load = function(wrapper) {
+frappe.pages['patient-allot-reject'].on_page_load = function(wrapper) {
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
 		title: 'Patient Allotment and Updation',
@@ -7,7 +7,7 @@ frappe.pages['patient-allotment-an'].on_page_load = function(wrapper) {
 
 	$("<div class='allot-patients' style='min-height: 200px; padding:15px; height:400px; overflow:auto;'>\
 		</div>").appendTo(page.main);
-	wrapper.patient_allotment_an = new frappe.PatientAllotment(wrapper);
+	wrapper.patient_allot_reject = new frappe.PatientAllotment(wrapper);
 }
 
 frappe.PatientAllotment = Class.extend({
@@ -16,15 +16,15 @@ frappe.PatientAllotment = Class.extend({
 		this.body = $(this.wrapper).find(".allot-patients");
 		this.filters = {};
 		this.add_filters();
-		// this.search_hospital();
 		this.allot_bed_to_patient();
 	},
 
+	// Get all patients information and Add filters 
 	add_filters: function(){
 		var me = this;
 
 		frappe.call({
-			method:"hospital_bed_management.hospital_bed_management.page.patient_allotment_an.patient_allotment_an.get_all_patients",
+			method:"hospital_bed_management.hospital_bed_management.page.patient_allot_reject.patient_allot_reject.get_all_patients",
 			callback: function(r) {
 				if(r.message){
 					me.options = r.message;
@@ -63,6 +63,7 @@ frappe.PatientAllotment = Class.extend({
 					fieldtype: "Button"
 				});
 
+				// Default selection of status filter - Recommended
 				$('select option:contains("Recommended")').prop('selected',true);
 
 				me.search_hospital();
@@ -70,6 +71,7 @@ frappe.PatientAllotment = Class.extend({
 		});
 	},
 
+	// Search recommended patient information
 	search_hospital: function(){
 		var me = this
 		me.search.$input.on("click", function() {
@@ -78,15 +80,17 @@ frappe.PatientAllotment = Class.extend({
 		});
 	},
 
+	// Get Recommended patient detials
 	recommended_hospital_details: function(){
 		var me = this;
+		// get filters velue for bed allocation
 		patient_name = this.filters.patient_name.$input.val();
 		p_type =  this.filters.patient_type.$input.val();
 		allotment_id =  this.filters.allotment_id.$input.val();
 		status =  this.filters.status.$input.val();
-
+		// get patient recommendation information
 		frappe.call({
-			method:"hospital_bed_management.hospital_bed_management.page.patient_allotment_an.patient_allotment_an.get_recommendation_detials",
+			method:"hospital_bed_management.hospital_bed_management.page.patient_allot_reject.patient_allot_reject.get_recommendation_detials",
 			args:{
 				"patient_name": patient_name,
 				"p_type": p_type,
@@ -95,7 +99,7 @@ frappe.PatientAllotment = Class.extend({
 			},
 			callback: function(r) {
 				if(r.message){
-					$(me.wrapper).find(".allot-patients").html(frappe.render_template("patient_allotment_an", {"data":r.message}))
+					$(me.wrapper).find(".allot-patients").html(frappe.render_template("patient_allot_reject", {"data":r.message}))
 				}
 
 				me.allot_bed_to_patient();
@@ -104,6 +108,7 @@ frappe.PatientAllotment = Class.extend({
 		});
 	},
 
+	// Allot bed to patient and update patient status
 	allot_bed_to_patient: function(){
 		var me = this
 		$(this.wrapper).find('.btn-allot').on("click", function() {
@@ -114,7 +119,7 @@ frappe.PatientAllotment = Class.extend({
 				if(me.filters.status.$input.val()=="Recommended"){
 					var patient_allot_id = $("input[name=select]:checked").closest('tr').attr('allot-id')
 					frappe.call({
-						method:"hospital_bed_management.hospital_bed_management.page.patient_allotment_an.patient_allotment_an.update_hospital_beds_availability",
+						method:"hospital_bed_management.hospital_bed_management.page.patient_allot_reject.patient_allot_reject.update_hospital_beds_availability",
 						args:{
 							"allotment_id":patient_allot_id
 						},
@@ -134,6 +139,7 @@ frappe.PatientAllotment = Class.extend({
 		})
 	},
 
+	// Bed allocation rejection
 	reject_allotment: function(){
 		var me = this
 		$(this.wrapper).find('.btn-reject').on("click", function() {
@@ -144,7 +150,7 @@ frappe.PatientAllotment = Class.extend({
 				if(me.filters.status.$input.val()=="Recommended"){
 					var patient_allot_id = $("input[name=select]:checked").closest('tr').attr('allot-id')
 					frappe.call({
-						method:"hospital_bed_management.hospital_bed_management.page.patient_allotment_an.patient_allotment_an.reject_bed_allotment",
+						method:"hospital_bed_management.hospital_bed_management.page.patient_allot_reject.patient_allot_reject.reject_bed_allotment",
 						args:{
 							"allotment_id":patient_allot_id
 						},

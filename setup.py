@@ -9,7 +9,7 @@ setup(
 	name='hospital_bed_management',
 	version=version,
 	description='Charitable Trust : Hospital Bed Management System',
-	author='Bed Management Syastem',
+	author='Bed Management System',
 	author_email='priya.s@indictranstech.com',
 	packages=find_packages(),
 	zip_safe=False,

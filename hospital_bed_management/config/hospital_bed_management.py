@@ -33,16 +33,16 @@ def get_data():
 				},
 				{
 					"type": "page",
-					"name": "hospital-search-and-",
+					"name": "hospital-search",
 					"label": _("Hospital Search and Allocation"),
 					"description": _("Hospital Search and Allocation Page"),
 					"hide_count": True
 				},
 				{
 					"type": "page",
-					"name": "patient-allotment-an",
+					"name": "patient-allot-reject",
 					"label": _("Patient Allotment and Updation"),
-					"description": _("Hospital Search and Allocation Page"),
+					"description": _("Patient Allotment and Updation Page"),
 					"hide_count": True
 				},
 			]
@@ -56,6 +56,32 @@ def get_data():
 					"name": "Hospital-wise Bed Availability Details",
 					"doctype": "Hospital Registration",
 					"is_query_report": True,
+				},
+				{
+					"type": "page",
+					"name": "occupancy-report",
+					"label":_("Hospital Occupancy Report"),
+					"description": _("Hospital Occupancy Report Page"),
+					"hide_count": True
+				},
+				{
+					"type": "page",
+					"name": "dashboard",
+					"label": _("Global Dashboard"),
+					"description": _("Global Dashboard"),
+					"hide_count": True
+				},
+			]
+		},
+		{
+			"label": _("Tools"),
+			"items": [
+				{
+					"type": "page",
+					"name": "data-import-tool",
+					"label": _("Ptaient Data Updation Tool"),
+					"description": _("Data Import Tool"),
+					"hide_count": True
 				},
 			]
 		}
