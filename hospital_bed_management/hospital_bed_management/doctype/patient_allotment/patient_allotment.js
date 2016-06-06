@@ -14,9 +14,21 @@ frappe.ui.form.on('Patient Allotment', {
 			cur_frm.add_custom_button(__('Recommend'), function() { cur_frm.events.recommend(); }, 'icon-retweet', 'btn-default');
 		}
 		if(!frm.doc.__islocal && frm.doc.status=="Alloted"){
-			cur_frm.add_custom_button(__('Discharge'), function() { cur_frm.events.update_info(); }, 'icon-retweet', 'btn-default');
+			if(in_list(user_roles, "Hospital User")){
+				cur_frm.add_custom_button(__('Discharge'), function() { cur_frm.events.update_info(); }, 'icon-retweet', 'btn-default discharge');
+			}
 		}
-		
+		if(!(frm.doc.__islocal) && !(frm.doc.status=="Not Verified")){
+			setTimeout(function() { cur_frm.events.table_readonly()}, 1000);
+		}
+	},
+
+	table_readonly: function(frm){
+		cur_frm.get_field("income_document").grid.docfields[0].read_only = 1;
+		cur_frm.get_field("income_document").grid.docfields[1].read_only = 1;
+		cur_frm.get_field("income_document").grid.docfields[2].read_only = 1;
+		cur_frm.get_field("income_document").grid.docfields[3].read_only = 1;
+		cur_frm.get_field("income_document").grid.docfields[4].read_only = 1;
 	},
 
 	// Calculate patient age from DOB
@@ -37,7 +49,7 @@ frappe.ui.form.on('Patient Allotment', {
 
 	// Update patient status on recommendation
 	recommend: function(frm,cdt,cdn){
-		var count = 0
+		var count = files = 0
 		// if(!(cur_frm.doc["income_document"]).length){
 		// 	frappe.throw(__("Please upload Income Verification Documents first for Recommendation..."));
 		// }
@@ -48,33 +60,43 @@ frappe.ui.form.on('Patient Allotment', {
 			if(d.verified_against_income==1){
 				count = count + 1
 			}
+			if(d.attach_file){
+				files = files + 1
+			}
 		});
-		
-	 	if((cur_frm.doc["income_document"]).length==count){
-	 		frappe.call({
-				method: "hospital_bed_management.hospital_bed_management.doctype.patient_allotment.patient_allotment.recommended_notification",
-				args: {
-					"hospital": cur_frm.doc.hospital_name,
-					"p_type": cur_frm.doc.patient_type,
-					"patient_name": cur_frm.doc.patient_name
-				},
-				callback: function(r) {
-					cur_frm.doc.status = "Recommended"
-			 		refresh_field('status')
-			 		cur_frm.save();
-			 		// frappe.set_route("hospital-search", "Hospital Bed Management");
-			 		frappe.set_route("List", "Patient Allotment");
-			 		msgprint("Recommendation Successfully Done.!!!")
-				}
-			});
+	 	if((cur_frm.doc["income_document"]).length==files){
+	 		if((cur_frm.doc["income_document"]).length==count){
+		 		frappe.call({
+					method: "hospital_bed_management.hospital_bed_management.doctype.patient_allotment.patient_allotment.recommended_notification",
+					args: {
+						"hospital": cur_frm.doc.hospital_name,
+						"p_type": cur_frm.doc.patient_type,
+						"patient_name": cur_frm.doc.patient_name
+					},
+					freeze: true,
+					freeze_message: __("Notification Sending..."),
+					callback: function(r) {
+						cur_frm.doc.status = "Recommended"
+				 		refresh_field('status')
+				 		cur_frm.save();
+				 		// frappe.set_route("hospital-search", "Hospital Bed Management");
+				 		frappe.set_route("List", "Patient Allotment");
+				 		msgprint("Recommendation Successfully Done.!!!")
+					}
+				});
+	 		}
+	 		else{
+		 		frappe.throw(__("Documents are not verified for Recommendation..."));
+		 	}
 	 	}
 	 	else{
-	 		frappe.throw(__("Documents are not verified for Recommendation..."));
+	 		frappe.throw(__("Document attachment is mandatory for Recommendation..."));
 	 	}
 	},
 
 	// Update bed info and patient info on discherged
 	update_info: function(frm,cdt,cdn){
+		// cur_frm.toggle_enable(['discharge'], false);
 		frappe.call({
 			method: "hospital_bed_management.hospital_bed_management.doctype.patient_allotment.patient_allotment.update_dischaged_info",
 			args: {
@@ -84,6 +106,8 @@ frappe.ui.form.on('Patient Allotment', {
 				"owner": cur_frm.doc.owner,
 				"patient_name": cur_frm.doc.patient_name
 			},
+			freeze: true,
+			freeze_message: __("Notification Sending..."),
 			callback: function(r) {
 				cur_frm.doc.status = "Discharged"
 		 		refresh_field('status')
@@ -93,5 +117,17 @@ frappe.ui.form.on('Patient Allotment', {
 		 		msgprint("Patient Discharged Successfully.Also updated discharge information.!!!")
 			}
 		});
-	}
+	},
+
+	// add validation annual_income
+	validate: function(frm){
+		if(frm.doc.patient_dob >= frappe.datetime.get_today()){
+			msgprint("Patient DOB should not be future date")
+			validated = false
+		}
+		if(frm.doc.annual_income <=0){
+			msgprint("Annual Income should be greater then 0")
+			validated = false
+		}
+	} 
 });

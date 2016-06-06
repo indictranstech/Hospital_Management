@@ -90,6 +90,9 @@ frappe.HospitalSearch = Class.extend({
 				if(r.message){
 					$(me.wrapper).find(".hospital-search").html(frappe.render_template("hospital_search", {"data":r.message}))
 				}
+				else{
+					msgprint("No Record Found")
+				}
 			}
 		});	
 	},

@@ -12,11 +12,14 @@ def get_recommendation_detials(patient_name,p_type,allotment_id,status):
 	if status: conditions += "and status = '%s'"%(status)
 
 	# Patient recommendation information with filters value
-	val = frappe.db.sql("""select defvalue from `tabDefaultValue` where parent = '%s' and defkey = 'Hospital Registration' """%(frappe.session.user), as_dict=1)
-	if val:
-		data = frappe.db.sql("""select * from `tabPatient Allotment` where hospital_name = '%s' %s """%(val[0]['defvalue'],conditions),as_dict=1)
+	if frappe.session.user!="Administrator":
+		val = frappe.db.sql("""select defvalue from `tabDefaultValue` where parent = '%s' and defkey = 'Hospital Registration' """%(frappe.session.user), as_dict=1)
+		if val :
+			data = frappe.db.sql("""select * from `tabPatient Allotment` where hospital_name = '%s' %s """%(val[0]['defvalue'],conditions),as_dict=1)
+		else:
+			frappe.throw(_("Please set Hospital in User Permissions first."))
 	else:
-		frappe.throw(_("Please set Hospital in User Permissions first."))
+		data = frappe.db.sql("""select * from `tabPatient Allotment` where docstatus = 0 %s """%(conditions),as_dict=1)
 	for d in data:
 		files = ""
 		documents = frappe.db.sql("""select document_name from `tabIncome Documents` where parent = '%s' """%(d["name"]),as_dict=1)
@@ -76,9 +79,9 @@ def update_hospital_beds_availability(allotment_id):
 
 	# Send notification to recommended user on bed allocation
 	user = frappe.db.get_values("Patient Allotment", {"name": allotment_id}, ["owner","patient_name", "hospital_name","patient_type"],as_dict=True)
-	message = """Dear Sir/Madam, \n \n You have recommended a patient - '%s' for hospital - '%s'. \n Bed is Allocated to this patient. \n \n Regards, \n %s """ %(user[0]['patient_name'], user[0]['hospital_name'],user[0]['hospital_name'])
+	message = """Dear Sir/Madam, \n \n You have recommended a patient to our hospital - '%s'. \n Bed Allocated to your recommended patient - '%s'. \n \n Regards, \n %s """ %(user[0]['hospital_name'], user[0]['patient_name'], user[0]['hospital_name'])
 	if user:
-		frappe.sendmail(recipients=user[0]['owner'], content=message, subject='Patient Allotment Notification')
+		frappe.sendmail(recipients=user[0]['owner'], content=message, subject='Patient Allocation Notification')
 
 # Update patient status on bed rejection
 @frappe.whitelist()

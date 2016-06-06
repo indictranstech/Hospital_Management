@@ -31,7 +31,7 @@ frappe.PatientAllotment = Class.extend({
 					me.filters.patient_name = me.wrapper.page.add_field({
 						fieldname: "patient_name",
 						label: __("Patient Name"),
-						fieldtype: "Data"
+						fieldtype: "Link"
 					});
 					$(me.wrapper).find('[data-fieldname = patient_name]').autocomplete({source: r.message})
 				}
@@ -84,6 +84,7 @@ frappe.PatientAllotment = Class.extend({
 	recommended_hospital_details: function(){
 		var me = this;
 		// get filters velue for bed allocation
+		// patient_name = $(this.wrapper).find('input[data-fieldname = patient_name]').val()
 		patient_name = this.filters.patient_name.$input.val();
 		p_type =  this.filters.patient_type.$input.val();
 		allotment_id =  this.filters.allotment_id.$input.val();
@@ -101,6 +102,9 @@ frappe.PatientAllotment = Class.extend({
 				if(r.message){
 					$(me.wrapper).find(".allot-patients").html(frappe.render_template("patient_allot_reject", {"data":r.message}))
 				}
+				else{
+					msgprint("No Record Found")
+				}
 
 				me.allot_bed_to_patient();
 				me.reject_allotment();
@@ -113,7 +117,7 @@ frappe.PatientAllotment = Class.extend({
 		var me = this
 		$(this.wrapper).find('.btn-allot').on("click", function() {
 			if($("input:radio[name='select']").is(":checked")!=true){
-				frappe.throw(__("Please select Patient first to Bed Allotment..."));
+				frappe.throw(__("Please first select the patient for Bed Allotment."));
 			}
 			else{ 
 				if(me.filters.status.$input.val()=="Recommended"){
@@ -123,6 +127,8 @@ frappe.PatientAllotment = Class.extend({
 						args:{
 							"allotment_id":patient_allot_id
 						},
+						freeze: true,
+						freeze_message: __("Notification Sending..."),
 						callback: function(r) {
 							msgprint("Bed Alloted Successfully to this patient...")
 							window.location.reload();
@@ -144,7 +150,7 @@ frappe.PatientAllotment = Class.extend({
 		var me = this
 		$(this.wrapper).find('.btn-reject').on("click", function() {
 			if($("input:radio[name='select']").is(":checked")!=true){
-				frappe.throw(__("Please select Patient first for Allotment rejection..."));
+				frappe.throw(__("Please first select the patient for Bed Allotment Rejection Or Cancellation."));
 			}
 			else{ 
 				if(me.filters.status.$input.val()=="Recommended"){
@@ -154,6 +160,8 @@ frappe.PatientAllotment = Class.extend({
 						args:{
 							"allotment_id":patient_allot_id
 						},
+						freeze: true,
+						freeze_message: __("Notification Sending..."),
 						callback: function(r) {
 							msgprint("Bed Allocation Rejected to this patient...")
 							window.location.reload();

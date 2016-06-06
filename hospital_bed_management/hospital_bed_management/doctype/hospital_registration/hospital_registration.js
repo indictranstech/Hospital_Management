@@ -2,11 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Hospital Registration', {
-	// refresh: function(frm) {
-		// if (!frm.doc.__islocal){
-		// 	frm.set_df_property("total_operational_beds", "read_only", 1);
-		// }
-	// },
+	// make field read only after save
+	refresh: function(frm) {
+		if (!frm.doc.__islocal){
+			frm.set_df_property("total_operational_beds", "read_only", 1);
+		}
+	},
 
 	//Calculate I and W reserved beds from Percentage
 	total_operational_beds: function(frm){

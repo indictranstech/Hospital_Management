@@ -79,7 +79,7 @@ def get_data():
 				{
 					"type": "page",
 					"name": "data-import-tool",
-					"label": _("Ptaient Data Updation Tool"),
+					"label": _("Patient Data Updation Tool"),
 					"description": _("Data Import Tool"),
 					"hide_count": True
 				},
