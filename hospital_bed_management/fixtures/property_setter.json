@@ -1,1 +1,36 @@
-[]
+[
+ {
+  "_assign": null, 
+  "_comments": null, 
+  "_liked_by": null, 
+  "_user_tags": null, 
+  "default_value": null, 
+  "doc_type": "Patient Allotment", 
+  "docstatus": 0, 
+  "doctype": "Property Setter", 
+  "doctype_or_field": "DocType", 
+  "field_name": null, 
+  "modified": "2016-06-02 12:28:44.964899", 
+  "name": "Patient Allotment-read_only_onload", 
+  "property": "read_only_onload", 
+  "property_type": "Check", 
+  "value": null
+ }, 
+ {
+  "_assign": null, 
+  "_comments": null, 
+  "_liked_by": null, 
+  "_user_tags": null, 
+  "default_value": null, 
+  "doc_type": "Patient Allotment", 
+  "docstatus": 0, 
+  "doctype": "Property Setter", 
+  "doctype_or_field": "DocField", 
+  "field_name": "hospital_name", 
+  "modified": "2016-06-02 12:28:45.080991", 
+  "name": "Patient Allotment-hospital_name-in_list_view", 
+  "property": "in_list_view", 
+  "property_type": "Check", 
+  "value": "1"
+ }
+]

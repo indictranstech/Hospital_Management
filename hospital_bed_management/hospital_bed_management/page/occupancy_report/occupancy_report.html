@@ -1,0 +1,73 @@
+<div class="row">
+	<div class="col-md-5" style="padding-right:20px;">
+		<div align="center" style="padding-bottom:10px;"><b>Top - 5 Occupancy</b></div>
+		<table class="table table-bordered">
+			<tr id="lable">
+				<th class="heading" id="heading_hight">Hospital Name</th>
+				<th class="heading" id="heading_hight">Total Occupancy</th>
+			</tr>
+			{% for(var i=0, l=data[0].length; i < l; i++) { %}
+			<tr>
+				<td class="report_row" style="text-align: left;">{{ data[0][i].name }}</td>
+				<td class="report_row">{{ data[0][i].tot }}</td>
+			</tr>
+			{% } %}
+		</table>
+	</div>
+	<div class="col-md-7">
+		<div align="center" style="padding-bottom:10px;"><b>Top 5 - Occupancy Ratio</b></div>
+		<table class="table table-bordered">
+			<tr>
+				<th class="heading" id="heading_hight">Hospital Name</th>
+				<th class="heading" id="heading_hight">I-Occupancy</th>
+				<th class="heading" id="heading_hight">W-Occupancy</th>
+				<th class="heading" id="heading_hight">I to W Ratio</th>
+			</tr>
+			{% for(var i=0, l=data[0].length; i < l; i++) { %}
+			<tr>
+				<td class="report_row" style="text-align: left;">{{ data[1][i].name }}</th>
+				<td class="report_row">{{ data[1][i].i_occupancy }}</td>
+				<td class="report_row">{{ data[1][i].w_occupancy }}</td>
+				<td class="report_row">{{ data[1][i].iw_occupancy_ratio }}</td>
+			</tr>
+			{% } %}
+		</table>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="col-md-5" style="padding-right:20px;">
+		<div align="center" style="padding-bottom:10px;"><b>Bottom 5 Occupancy</b></div>
+		<table class="table table-bordered">
+			<tr>
+				<th class="heading" id="heading_hight">Hospital Name</th>
+				<th class="heading" id="heading_hight">Total Occupancy</th>
+			</tr>
+			{% for(var i=0, l=data[2].length; i < l; i++) { %}
+			<tr>
+				<td class="report_row" style="text-align: left;">{{ data[2][i].name }}</td>
+				<td class="report_row">{{ data[2][i].tot }}</td>
+			</tr>
+			{% } %}
+		</table>
+	</div>
+	<div class="col-md-7">
+		<div align="center" style="padding-bottom:10px;"><b>Bottom 5 - Occupancy Ratio</b></div>
+		<table class="table table-bordered">
+			<tr>
+				<th class="heading" id="heading_hight">Hospital Name</th>
+				<th class="heading" id="heading_hight">I-Occupancy</th>
+				<th class="heading" id="heading_hight">W-Occupancy</th>
+				<th class="heading" id="heading_hight">I to W Ratio</th>
+			</tr>
+			{% for(var i=0, l=data[3].length; i < l; i++) { %}
+			<tr>
+				<td class="report_row" style="text-align: left;">{{ data[3][i].name }}</th>
+				<td class="report_row">{{ data[3][i].i_occupancy }}</td>
+				<td class="report_row">{{ data[3][i].w_occupancy }}</td>
+				<td class="report_row">{{ data[3][i].iw_occupancy_ratio }}</td>
+			</tr>
+			{% } %}
+		</table>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+.view{
+	padding-left: 15px !important;
+	padding-right:  20px !important;
+	padding-top:  0px !important;
+	padding-bottom:  0px !important;
+	padding: 0px;
+    border: 1px solid #808080 !important;
+    overflow-x: hidden !important;
+}
+
+.layout-main-section-wrapper{
+	margin: 0px !important;
+	padding-left: 0px !important;
+	padding-right:  15px !important;
+}
+
+.page-head{
+	border-bottom: 1px solid #808080;
+}
+
+.layout-main-section{
+	border: 1px solid #808080 !important;
+}
+
+.page-form{
+	padding-left: 0px !important;
+	padding-right:  15px !important;
+	border-bottom: 0px !important;
+}
+
+#chart{
+	padding-top: 15px !important;
+	 border-top: 0px !important;
+	 border-bottom: 0px !important;
+}
+
+#graph{
+	padding-top: 30px !important;
+	padding-bottom: 40px !important;
+}

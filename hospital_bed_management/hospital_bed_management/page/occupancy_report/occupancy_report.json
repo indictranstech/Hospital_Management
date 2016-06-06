@@ -1,22 +1,28 @@
 {
  "content": null, 
- "creation": "2016-05-20 18:14:25.116141", 
+ "creation": "2016-05-27 13:10:29.521782", 
  "docstatus": 0, 
  "doctype": "Page", 
  "idx": 0, 
- "modified": "2016-05-23 11:00:29.878628", 
+ "modified": "2016-05-27 13:10:29.521782", 
  "modified_by": "Administrator", 
  "module": "Hospital Bed Management", 
- "name": "patient-allotment-an", 
+ "name": "occupancy-report", 
  "owner": "Administrator", 
- "page_name": "Patient Allotment and Updation", 
+ "page_name": "Occupancy Report", 
  "roles": [
   {
+   "role": "Municipal Officers"
+  }, 
+  {
    "role": "Hospital User"
+  }, 
+  {
+   "role": "Social Workers"
   }
  ], 
  "script": null, 
  "standard": "Yes", 
  "style": null, 
- "title": "Patient Allotment and Updation"
+ "title": "Hospital Occupancy Report"
 }

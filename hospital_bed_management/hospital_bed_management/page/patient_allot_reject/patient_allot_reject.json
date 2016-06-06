@@ -1,0 +1,22 @@
+{
+ "content": null, 
+ "creation": "2016-05-20 18:14:25.116141", 
+ "docstatus": 0, 
+ "doctype": "Page", 
+ "idx": 0, 
+ "modified": "2016-05-30 15:59:37.020637", 
+ "modified_by": "Administrator", 
+ "module": "Hospital Bed Management", 
+ "name": "patient-allot-reject", 
+ "owner": "Administrator", 
+ "page_name": "Patient Allotment and Updation", 
+ "roles": [
+  {
+   "role": "Hospital User"
+  }
+ ], 
+ "script": null, 
+ "standard": "Yes", 
+ "style": null, 
+ "title": "Patient Allotment and Updation"
+}

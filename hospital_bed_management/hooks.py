@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 app_name = "hospital_bed_management"
 app_title = "Hospital Bed Management"
-app_publisher = "Bed Management Syastem"
+app_publisher = "Bed Management System"
 app_description = "Charitable Trust : Hospital Bed Management System"
-app_icon = "icon-suitcase"
+app_icon = "octicon octicon-plus"
 app_color = "#FA5858"
 app_email = "priya.s@indictranstech.com"
 app_version = "0.0.1"
@@ -17,6 +17,8 @@ app_license = "Hospital Bed Management system"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/hospital_bed_management/css/hospital_bed_management.css"
 # app_include_js = "/assets/hospital_bed_management/js/hospital_bed_management.js"
+
+app_include_js = "/assets/hospital_bed_management/charts.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/hospital_bed_management/css/hospital_bed_management.css"
@@ -60,9 +62,10 @@ fixtures = ['Custom Field', 'Property Setter','Role']
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+	"Patient Allotment": "hospital_bed_management.hospital_bed_management.doctype.patient_allotment.patient_allotment.get_permission_query_conditions_recommeded"
+	# "Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
+}
 #
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",

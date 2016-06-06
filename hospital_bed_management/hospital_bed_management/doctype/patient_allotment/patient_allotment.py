@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2015, Bed Management Syastem and contributors
+# Copyright (c) 2015, Bed Management System and contributors
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
@@ -10,6 +10,7 @@ from datetime import date
 import datetime
 from frappe.utils import flt, cstr, cint
 from frappe.model.naming import make_autoname
+from frappe import throw, _
 
 class PatientAllotment(Document):
 	def autoname(self):
@@ -17,15 +18,36 @@ class PatientAllotment(Document):
 		month = datetime.datetime.now().strftime("%m").upper()
 		self.name = make_autoname(self.patient_type[:1] + '-' + self.hospital_code[:4]+ '-' + year + '-' + month  + '-'+ '.####')
 
-
+#Calculate age from birth date
 @frappe.whitelist()
 def calculate_age(dob):
 	curr_day = date.today()
 	d = datetime.datetime.strptime(dob, '%Y-%m-%d')
 	return curr_day.year - d.year - ((curr_day.month, curr_day.day) < (d.month, d.day))
 
+# Patient recommendation notification
 @frappe.whitelist()
-def update_dischaged_info(hospital, p_type):
+def recommended_notification(hospital, p_type, patient_name):
+	# check bed avilability
+	if p_type == "Indigent":
+		i_bed_aval = frappe.db.get_value("Hospital Registration", hospital, ["i_available"],as_dict=True)
+		if i_bed_aval and i_bed_aval['i_available'] <= 0:
+			frappe.throw(_("Sorry...Beds are not available for Indigent patients."))
+	elif p_type == "Weaker":
+		w_bed_aval = frappe.db.get_value("Hospital Registration", hospital, ["w_available"],as_dict=True)
+		if w_bed_aval and w_bed_aval['w_available'] <= 0:
+			frappe.throw(_("Sorry...Beds are not available for Weaker patients."))
+			
+	# send notification
+	user = frappe.db.sql("""select parent from `tabDefaultValue` where defvalue = '%s' and defkey = 'Hospital Registration' """%(hospital), as_dict=1)
+	message = """Dear Sir/Madam, \n \n We are recommanding one '%s' Patient - '%s' to your hospital - '%s'. \n Please check bed availability and procced. \n \n Thanks. """ %(p_type, patient_name, hospital)
+	if user:
+		frappe.sendmail(recipients=user[0]['parent'] , content=message, subject='Patient Recommendation Notification')
+	
+
+#Update Hospital and patients information on patient discharge
+@frappe.whitelist()
+def update_dischaged_info(hospital, p_type, allotment_id,owner,patient_name):
 	if p_type == "Indigent":
 		i_alloted = frappe.db.get_value("Hospital Registration", hospital, ["i_patient_alloted","i_available"],as_dict=True)
 		hosp = frappe.get_doc('Hospital Registration',hospital)
@@ -41,4 +63,19 @@ def update_dischaged_info(hospital, p_type):
 		hosp.flags.ignore_permissions = 1
 		hosp.save()
 
+	# Send notification to recommended user on patient discharge
+	message = """Dear Sir/Madam, \n \n You have recommended a patient - '%s' for hospital - '%s'. \n Now discharged this patient. \n \n Regards, \n %s """ %(patient_name, hospital,hospital)
+	if owner:
+		frappe.sendmail(recipients=owner, content=message, subject='Patient Discharge Notification')
 
+
+def get_permission_query_conditions_recommeded(user):
+	return recommended_patients(frappe.session.user)
+
+def recommended_patients(user):
+	conditions = []
+	roles = frappe.get_roles(user)
+	for role in roles:
+		if role == "Hospital User":
+			conditions.append("ifnull(`tabPatient Allotment`.`status`, '')!='Not Verified' or ifnull(`tabPatient Allotment`.`owner`, '')='"+user+"' ")
+			return " and ".join(conditions) if conditions else None
