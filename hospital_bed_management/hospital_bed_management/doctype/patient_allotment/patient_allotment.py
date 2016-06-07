@@ -40,7 +40,7 @@ def recommended_notification(hospital, p_type, patient_name):
 			
 	# send notification
 	user = frappe.db.sql("""select parent from `tabDefaultValue` where defvalue = '%s' and defkey = 'Hospital Registration' """%(hospital), as_dict=1)
-	message = """Dear Sir/Madam, \n \n We are recommanding one '%s' Patient - '%s' to your hospital - '%s'. \n Please check bed availability and procced. \n \n Thanks. """ %(p_type, patient_name, hospital)
+	message = """Dear Sir/Madam, \n \n We are recommanding one '%s' Patient - '%s' to your hospital - '%s'. \n Please check bed availability and proceed. \n \n Thanks. """ %(p_type, patient_name, hospital)
 	if user:
 		frappe.sendmail(recipients=user[0]['parent'] , content=message, subject='Patient Recommendation Notification')
 	
@@ -64,7 +64,7 @@ def update_dischaged_info(hospital, p_type, allotment_id,owner,patient_name):
 		hosp.save()
 
 	# Send notification to recommended user on patient discharge
-	message = """Dear Sir/Madam, \n \n You have recommended a patient - '%s' for hospital - '%s'. \n Now discharged this patient. \n \n Regards, \n %s """ %(patient_name, hospital,hospital)
+	message = """Dear Sir/Madam, \n \n You have recommended a patient for hospital - '%s'. \n Now patient - '%s' is discharged. \n \n Regards, \n %s """ %(hospital, patient_name, hospital)
 	if owner:
 		frappe.sendmail(recipients=owner, content=message, subject='Patient Discharge Notification')
 

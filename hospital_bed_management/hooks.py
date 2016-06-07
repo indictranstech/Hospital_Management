@@ -47,7 +47,7 @@ app_include_js = "/assets/hospital_bed_management/charts.js"
 # Installation
 # ------------
 
-fixtures = ['Custom Field', 'Property Setter','Role']
+fixtures = ['Custom Field', 'Property Setter', 'Role']
 
 # before_install = "hospital_bed_management.install.before_install"
 # after_install = "hospital_bed_management.install.after_install"

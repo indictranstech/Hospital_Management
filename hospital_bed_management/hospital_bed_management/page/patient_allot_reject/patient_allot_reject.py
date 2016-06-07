@@ -93,6 +93,6 @@ def reject_bed_allotment(allotment_id):
 
 	# Send notification to recommended user on bed rejection
 	user = frappe.db.get_values("Patient Allotment", {"name": allotment_id}, ["owner","patient_name", "hospital_name","patient_type"],as_dict=True)
-	message = """Dear Sir/Madam, \n \n You have recommended a patient - '%s' for hospital - '%s'. \n Bed Allotment	is Rejected for this patient. \n \n Regards, \n %s """ %(user[0]['patient_name'], user[0]['hospital_name'],user[0]['hospital_name'])
+	message = """Dear Sir/Madam, \n \n You have recommended a patient to our hospital - '%s'. \n Bed Allotment is Rejected for patient - '%s'. \n \n Regards, \n \n %s """ %(user[0]['hospital_name'], user[0]['patient_name'], user[0]['hospital_name'])
 	if user:
 		frappe.sendmail(recipients=user[0]['owner'], content=message, subject='Patient Rejection Notification')
