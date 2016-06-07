@@ -29,6 +29,7 @@ frappe.ui.form.on('Patient Allotment', {
 		cur_frm.get_field("income_document").grid.docfields[2].read_only = 1;
 		cur_frm.get_field("income_document").grid.docfields[3].read_only = 1;
 		cur_frm.get_field("income_document").grid.docfields[4].read_only = 1;
+		cur_frm.set_df_property("income_document", "read_only", 1);
 	},
 
 	// Calculate patient age from DOB
@@ -45,6 +46,12 @@ frappe.ui.form.on('Patient Allotment', {
 				}
 			}
 		});
+	},
+
+	// remove patient DOB on entering age directly
+	patient_age: function(frm){
+		frm.doc.patient_dob = ""
+		refresh_field('patient_dob')
 	},
 
 	// Update patient status on recommendation
