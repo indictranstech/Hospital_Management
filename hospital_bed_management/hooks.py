@@ -18,7 +18,14 @@ app_license = "Hospital Bed Management system"
 # app_include_css = "/assets/hospital_bed_management/css/hospital_bed_management.css"
 # app_include_js = "/assets/hospital_bed_management/js/hospital_bed_management.js"
 
-app_include_js = "/assets/hospital_bed_management/charts.js"
+# app_include_js = "/assets/hospital_bed_management/charts.js"
+
+app_include_js = "assets/js/hospital_file.js"
+
+# website_context = {
+# 	"favicon": 	"/assets/erpnext/images/favicon.png",
+# 	"splash_image": "/assets/erpnext/images/splash.png"
+# }
 
 # include js, css files in header of web template
 # web_include_css = "/assets/hospital_bed_management/css/hospital_bed_management.css"

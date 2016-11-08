@@ -1,0 +1,6 @@
+{
+	"js/hospital_file.js": [
+		"public/conf.js",
+		"public/charts.js"
+	]
+}
