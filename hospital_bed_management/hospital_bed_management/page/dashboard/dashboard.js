@@ -35,7 +35,9 @@ frappe.Dashboard = Class.extend({
 		window.setTimeout(function() { me.graph_view(wrapper)}, 1000);
 		this.page = wrapper.page;
 		this.specialities = this.page.add_field({fieldtype:"Link", label:"Specialities", fieldname:"apecialities", reqd:0,
-			options:"Specialities", default:"General"});
+			options:"Specialities"});
+		// this.specialities = this.page.add_field({fieldtype:"Link", label:"Specialities", fieldname:"apecialities", reqd:0,
+		// 	options:"Specialities", default:"General"});
 		$("<div ><input class='btn btn-default refresh' id='refresh' name ='refresh' type='button' value='Refresh' style='float: right; margin-right:15px; color:#707070 ;'>\
 			</div>").appendTo($(wrapper).find('.page-form.row'));
 	},
