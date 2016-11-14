@@ -14,6 +14,7 @@ frappe.pages['dashboard'].on_page_load = function(wrapper) {
 			</div>\
 		</div>").appendTo($(wrapper).find('.layout-main'));
 	wrapper.dashboard = new frappe.Dashboard(wrapper);
+	frappe.breadcrumbs.add("Hospital Bed Management");
 }
 
 frappe.Dashboard = Class.extend({
