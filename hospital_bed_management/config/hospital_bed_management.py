@@ -15,7 +15,7 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Hospital Registration",
-					"label": _("Hospital Registration"),
+					"label": _("Hospital Profile"),
 					"description": _("Hospital Registration Database"),
 					"hide_count": True
 				},
@@ -27,15 +27,15 @@ def get_data():
 				{
 					"type": "doctype",
 					"name": "Patient Allotment",
-					"label": _("Patient Recommendation"),
-					"description": _("Patient Allotment Database"),
+					"label": _("Patient Registration"),
+					"description": _("Patient Registration Database"),
 					"hide_count": True
 				},
 				{
 					"type": "page",
 					"name": "hospital-search",
-					"label": _("Hospital Search and Allocation"),
-					"description": _("Hospital Search and Allocation Page"),
+					"label": _("Hospital Search and Recommendation"),
+					"description": _("Hospital Search and Recommendation Page"),
 					"hide_count": True
 				},
 				{
@@ -72,17 +72,17 @@ def get_data():
 					"hide_count": True
 				},
 			]
-		},
-		{
-			"label": _("Tools"),
-			"items": [
-				{
-					"type": "page",
-					"name": "data-import-tool",
-					"label": _("Patient Data Updation Tool"),
-					"description": _("Data Import Tool"),
-					"hide_count": True
-				},
-			]
 		}
+		# {
+		# 	"label": _("Tools"),
+		# 	"items": [
+		# 		{
+		# 			"type": "page",
+		# 			"name": "data-import-tool",
+		# 			"label": _("Patient Data Updation Tool"),
+		# 			"description": _("Data Import Tool"),
+		# 			"hide_count": True
+		# 		},
+		# 	]
+		# }
 	]

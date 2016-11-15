@@ -86,9 +86,15 @@ frappe.ui.form.on('Patient Allotment', {
 						cur_frm.doc.status = "Recommended"
 				 		refresh_field('status')
 				 		cur_frm.save();
+				 		if (in_list(user_roles, "Hospital User")){
+				 			frappe.set_route("patient-allot-reject");
+				 			msgprint("Recommendation Successfully Done.!!!")
+				 		}
+				 		else if(in_list(user_roles, "Municipal Officers") || in_list(user_roles, "Social Workers")){
+				 			frappe.set_route("List", "Patient Allotment");
+				 			msgprint("Recommendation Successfully Done.!!!")
+				 		}
 				 		// frappe.set_route("hospital-search", "Hospital Bed Management");
-				 		frappe.set_route("List", "Patient Allotment");
-				 		msgprint("Recommendation Successfully Done.!!!")
 					}
 				});
 	 		}
