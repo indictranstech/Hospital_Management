@@ -36,6 +36,9 @@ frappe.Dashboard = Class.extend({
 		this.page = wrapper.page;
 		this.specialities = this.page.add_field({fieldtype:"Link", label:"Specialities", fieldname:"apecialities", reqd:0,
 			options:"Specialities"});
+
+		this.hospital = this.page.add_field({fieldtype:"Link", label:"Hospital", fieldname:"hospital", reqd:0,
+			options:"Hospital Registration"});
 		// this.specialities = this.page.add_field({fieldtype:"Link", label:"Specialities", fieldname:"apecialities", reqd:0,
 		// 	options:"Specialities", default:"General"});
 		$("<div ><input class='btn btn-default refresh' id='refresh' name ='refresh' type='button' value='Refresh' style='float: right; margin-right:15px; color:#707070 ;'>\
@@ -47,11 +50,12 @@ frappe.Dashboard = Class.extend({
 		var me = this;
 		this.page = wrapper.page;
 		var specialities = me.specialities.$input.val()
+		var hospital = me.hospital.$input.val()
 		frappe.call({
 			method:"hospital_bed_management.hospital_bed_management.page.dashboard.dashboard.get_dashbord_details",
-			args:{  "specialities": specialities },
+			args:{  "specialities": specialities, "hospital": hospital },
 			callback: function(r) {
-				if(r.message){
+				if(r.message.details.length > 1){
 					// get data from query
 					data=[];
 				  	for(var x in r.message.details){
@@ -81,6 +85,13 @@ frappe.Dashboard = Class.extend({
 				    var chart = new google.visualization.BarChart(document.getElementById("chart1"));
 				    chart.draw(final_data, options);
 				}
+				else{
+					msgprint(__('No Data Found against this criteria...'));
+					me.specialities.$input.val('')
+					me.hospital.$input.val('')
+					me.chart_view(wrapper);
+					me.graph_view(wrapper);
+				}
 			}
 		});
 	},
@@ -89,11 +100,12 @@ frappe.Dashboard = Class.extend({
 	graph_view: function(wrapper){
 		var me = this;
 		var specialities = me.specialities.$input.val()
+		var hospital = me.hospital.$input.val()
 		frappe.call({
 			method:"hospital_bed_management.hospital_bed_management.page.dashboard.dashboard.get_dashbord_details",
-			args:{ "specialities": specialities },
+			args:{ "specialities": specialities, "hospital": hospital },
 			callback: function(r) {
-				if(r.message){
+				if(r.message.details.length > 1){
 					// get data from query
 					data=[];
 				  	for(var x in r.message.details){
@@ -124,6 +136,13 @@ frappe.Dashboard = Class.extend({
 				    var chart = new google.visualization.AreaChart(document.getElementById("graph1"));
 				    chart.draw(final_data, options);
 				}
+				else{
+					// msgprint(__('No Data Found against this criteria...'));
+					me.specialities.$input.val('')
+					me.hospital.$input.val('')
+					me.chart_view(wrapper);
+					me.graph_view(wrapper);
+				}
 			}
 		});
 	},
@@ -136,6 +155,11 @@ frappe.Dashboard = Class.extend({
 			me.graph_view(wrapper);
 
 		});
+		me.hospital.$input.change(function(){
+			me.chart_view(wrapper);
+			me.graph_view(wrapper);
+
+		});
 	},
 
 	// refresh page
@@ -143,6 +167,7 @@ frappe.Dashboard = Class.extend({
 		var me = this
 		$(me.wrapper).find('.refresh').on("click", function() {
 			me.specialities.$input.val('')
+			me.hospital.$input.val('')
 			me.chart_view(wrapper);
 			me.graph_view(wrapper);
 		});

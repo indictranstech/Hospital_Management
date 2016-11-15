@@ -3,10 +3,11 @@ import frappe
 
 # Get hospital detials for dashboard
 @frappe.whitelist()
-def get_dashbord_details(specialities):
+def get_dashbord_details(specialities, hospital):
 	data = []
 	conditions = ""
 	if specialities: conditions += "and specialities = '%s'"%(specialities)
+	if hospital: conditions += "and hospital_name = '%s'"%(hospital)
 	
 	# get bed availability details with speciality filter
 	data = frappe.db.sql("""select name, total_operational_beds, reserved_for_indigent_patients, 

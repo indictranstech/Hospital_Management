@@ -4,7 +4,7 @@
  "docstatus": 0, 
  "doctype": "Page", 
  "idx": 0, 
- "modified": "2016-05-27 13:10:29.521782", 
+ "modified": "2016-11-15 10:57:09.726939", 
  "modified_by": "Administrator", 
  "module": "Hospital Bed Management", 
  "name": "occupancy-report", 
@@ -13,12 +13,6 @@
  "roles": [
   {
    "role": "Municipal Officers"
-  }, 
-  {
-   "role": "Hospital User"
-  }, 
-  {
-   "role": "Social Workers"
   }
  ], 
  "script": null, 
