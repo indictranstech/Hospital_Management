@@ -8,11 +8,22 @@ from frappe.model.document import Document
 from datetime import datetime
 from datetime import date
 import datetime
-from frappe.utils import flt, cstr, cint
+from frappe.utils import flt, cstr, cint, today
 from frappe.model.naming import make_autoname
 from frappe import throw, _
 
 class PatientAllotment(Document):
+	def validate(self):
+		# Maintain Status-wise dates for report purpose
+		if self.status == "Recommended" and not self.recommend_date :
+			self.recommend_date = today()
+		if self.status == "Rejected" and not self.rejected_date :
+			self.rejected_date = today()
+		if self.status == "Alloted" and not self.alotted_date :
+			self.alotted_date = today()
+		if self.status == "Discharged" and not self.discharge_date :
+			self.discharge_date = today()
+
 	def autoname(self):
 		year = datetime.datetime.now().strftime("%Y").upper()
 		month = datetime.datetime.now().strftime("%m").upper()

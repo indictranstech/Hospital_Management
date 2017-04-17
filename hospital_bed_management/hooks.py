@@ -54,7 +54,7 @@ app_include_js = "assets/js/hospital_file.js"
 # Installation
 # ------------
 
-fixtures = ['Custom Field', 'Property Setter', 'Role']
+fixtures = ['Custom Field', 'Property Setter', 'Role', 'Web Page']
 
 # before_install = "hospital_bed_management.install.before_install"
 # after_install = "hospital_bed_management.install.after_install"
