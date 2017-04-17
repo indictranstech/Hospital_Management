@@ -5,7 +5,7 @@ frappe.pages['dashboard'].on_page_load = function(wrapper) {
 		single_column: true
 	});
 
-	$("<div class='view' id='chart' style='min-width: 900px; width:1155px; overflow: hidden;'><b> </b>\
+	$("<div class='view' id='chart' style='min-width: 900px; width:1155px;overflow: hidden;'><b> </b>\
 			<div class='chart' id='chart1' style='min-width: 900px; overflow: hidden'>\
 			</div>\
 		</div>\
@@ -77,7 +77,7 @@ frappe.Dashboard = Class.extend({
 		                        titleTextStyle: {color: '#CC0099'}
 		                },
 						width: 1200,
-						height: 400,
+						height: 800,
 						legend: { position: 'top', maxLines: 5 },
 						bar: { groupWidth: '60%' },
 						isStacked: true
@@ -127,8 +127,8 @@ frappe.Dashboard = Class.extend({
 		                        titleTextStyle: {color: '#CC0099'}
 		                },
 				    	animationEnabled: true,
-						width: 1200,
-						height: 400,
+						width: 1300,
+						height: 700,
 						legend: { position: 'top', maxLines: 5 },
 						isStacked: true,
 						bar: { groupWidth: '65%' }					

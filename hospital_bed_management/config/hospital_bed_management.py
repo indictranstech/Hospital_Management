@@ -7,6 +7,12 @@ def get_data():
 			"items": [
 				{
 					"type": "doctype",
+					"name": "User",
+					"label": _("User"),
+					"description": _("User")
+				},
+				{
+					"type": "doctype",
 					"name": "Specialities",
 					"label": _("Specialities"),
 					"description": _("Specialities Database"),
@@ -63,6 +69,18 @@ def get_data():
 					"label":_("Hospital Occupancy Report"),
 					"description": _("Hospital Occupancy Report Page"),
 					"hide_count": True
+				},
+				{
+					"type": "report",
+					"name": "Patient Admit Count Report",
+					"doctype": "Patient Allotment",
+					"is_query_report": True,
+				},
+				{
+					"type": "report",
+					"name": "Daily Nil Report",
+					"doctype": "Patient Allotment",
+					"is_query_report": True,
 				},
 				{
 					"type": "page",
