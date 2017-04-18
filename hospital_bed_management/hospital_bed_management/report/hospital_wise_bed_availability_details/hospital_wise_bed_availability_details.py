@@ -12,7 +12,7 @@ def execute(filters=None):
 	return columns, data
 
 def get_columns():
-	return [_("Hospital Name") + ":Link/Hospital Registration:240",_("Spaciality") + ":Data:130", 
+	return [_("Hospital Name") + ":Link/Hospital Registration:240",_("Speciality") + ":Data:130", 
 			_("Total Beds") + ":Int:100", _("I-Total") + ":Int:100", _("W-Total") + ":Int:100", 
 			_("I-Occupied") + ":Int:100", _("W-Occupied") + ":Int:100", 
 			_("I-Available") + ":Int:100", _("W-Available") + ":Int:100"]
