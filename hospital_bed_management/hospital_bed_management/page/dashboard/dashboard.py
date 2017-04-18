@@ -27,7 +27,7 @@ def get_dashbord_details(specialities, hospital):
 @frappe.whitelist(allow_guest=True)
 def hospital_details():
 	data = []
-	data = frappe.db.sql("""select name, specialities, total_operational_beds, 
+	data = frappe.db.sql("""select name, IFNULL(specialities,'') as specialities , total_operational_beds, 
 				reserved_for_indigent_patients, reserved_for_weaker_patients, i_patient_alloted, 
 				w_patient_alloted, i_available, w_available from `tabHospital Registration` 
 				where status = 'Active'	""", as_dict=1)
