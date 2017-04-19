@@ -23,7 +23,7 @@ def get_dashbord_details(specialities, hospital):
 
 	return ret
 
-
+# To dispaly Hospital-wise Bed Availability to Guest User
 @frappe.whitelist(allow_guest=True)
 def hospital_details():
 	data = []
